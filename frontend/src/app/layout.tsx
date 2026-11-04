@@ -4,11 +4,13 @@ import { type Metadata } from "next";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ArtifactDraftsProvider } from "@/core/artifacts/draft-context";
+import { PRODUCT } from "@/core/brand";
 import { DEFAULT_LOCALE } from "@/core/i18n/locale";
 
 export const metadata: Metadata = {
-  title: "DeerFlow",
-  description: "A LangChain-based framework for building super agents.",
+  title: PRODUCT.name,
+  description: PRODUCT.description,
+  icons: { icon: "/datapilot.svg" },
 };
 
 export default function RootLayout({

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
@@ -66,6 +67,14 @@ export function Welcome({
         <div className="text-muted-foreground max-w-full text-sm">
           <WelcomeDescription>{t.welcome.description}</WelcomeDescription>
         </div>
+      )}
+      {searchParams.get("mode") !== "skill" && (
+        <Link
+          href="/workspace/data"
+          className="mt-3 rounded-full border border-teal-500/30 bg-teal-500/10 px-5 py-2 text-sm text-teal-700 dark:text-teal-300"
+        >
+          打开数据工作台 · 上传数据并开始分析 ↗
+        </Link>
       )}
     </div>
   );

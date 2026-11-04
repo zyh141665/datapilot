@@ -1,0 +1,16 @@
+# Merge public declarations with an existing operator config, or run scripts/datapilot_setup.py.
+# The helper fills the absolute storage path for this checkout; restart Gateway after setup.
+plugins:
+  - use: datapilot_analysis.plugin:install
+    enabled: true
+    required: true
+    config:
+      enabled: true
+      # Replace with an absolute, writable path on the deployment host.
+      storage_path: "D:/path/to/deer-flow/backend/.deer-flow/data/datapilot.sqlite"
+tool_groups:
+  - name: datapilot
+tools:
+  - name: analyze_csv
+    group: datapilot
+    use: datapilot_analysis.tools:analyze_csv_tool

@@ -5,6 +5,7 @@ description = "LangGraph-based AI agent system with sandbox execution capabiliti
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "datapilot-analysis",
     "deerflow-harness",
     # Direct dependency on purpose, even though deerflow-harness already pulls
     # it in: app/gateway/app.py and app/gateway/services.py import the public
@@ -115,5 +116,6 @@ override-dependencies = ["websockets==16.0"]
 members = ["packages/harness", "packages/extension-api"]
 
 [tool.uv.sources]
+datapilot-analysis = { path = "../examples/datapilot-analysis", editable = true }
 deerflow-harness = { workspace = true }
 deerflow-extension-api = { workspace = true }

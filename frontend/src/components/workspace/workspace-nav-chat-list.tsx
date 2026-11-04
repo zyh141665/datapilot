@@ -40,6 +40,14 @@ export function WorkspaceNavChatList() {
     <SidebarGroup className="pt-1">
       <SidebarMenu>
         <SidebarMenuItem>
+          <SidebarMenuButton isActive={pathname === "/workspace/data"} asChild>
+            <Link className="text-muted-foreground" href="/workspace/data">
+              <ChartColumn />
+              <span>数据工作台</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        <SidebarMenuItem>
           <SidebarMenuButton isActive={pathname === "/workspace/chats"} asChild>
             <Link className="text-muted-foreground" href="/workspace/chats">
               <MessagesSquare />

@@ -1,18 +1,20 @@
 DEER_FLOW_HOME ?= $(CURDIR)/.deer-flow
 DEER_FLOW_HOME := $(abspath $(DEER_FLOW_HOME))
 BACKEND_SANDBOX_HOME := $(abspath $(CURDIR)/sandbox)
+BACKEND_VENV_HOME := $(abspath $(CURDIR)/.venv)
 
 install:
 	uv sync --locked
 
 dev:
-	mkdir -p "$(DEER_FLOW_HOME)" "$(BACKEND_SANDBOX_HOME)"
+	mkdir -p "$(DEER_FLOW_HOME)" "$(BACKEND_SANDBOX_HOME)" "$(BACKEND_VENV_HOME)"
 	PYTHONPATH=. PYTHONIOENCODING=utf-8 PYTHONUTF8=1 DEER_FLOW_HOME="$(DEER_FLOW_HOME)" uv run --locked uvicorn app.gateway.app:app --host 127.0.0.1 --port 8001 \
 		--reload \
 		--reload-include='*.yaml' \
 		--reload-include='.env' \
 		--reload-exclude='*.pyc' \
 		--reload-exclude='__pycache__' \
+		--reload-exclude="$(BACKEND_VENV_HOME)" \
 		--reload-exclude="$(BACKEND_SANDBOX_HOME)" \
 		--reload-exclude="$(DEER_FLOW_HOME)"
 

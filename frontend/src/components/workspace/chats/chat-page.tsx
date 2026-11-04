@@ -11,6 +11,7 @@ import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { ArtifactTrigger } from "@/components/workspace/artifacts";
 import { BrowserTrigger } from "@/components/workspace/browser-view";
 import { ContextUsageBadge } from "@/components/workspace/context-usage-badge";
+import { DatasetSelector } from "@/components/workspace/dataset-selector";
 import { ExportTrigger } from "@/components/workspace/export-trigger";
 import { GoalStatus } from "@/components/workspace/goal-status";
 import {
@@ -42,6 +43,7 @@ import { Welcome } from "@/components/workspace/welcome";
 import { WorkspaceSidebarTrigger } from "@/components/workspace/workspace-sidebar-trigger";
 import { useAuth } from "@/core/auth/AuthProvider";
 import { hasPermission, PERMISSIONS } from "@/core/auth/permissions";
+import { useDatasetSelection } from "@/core/datapilot/hooks";
 import {
   useBrowserControlEnabled,
   useKnowledgeBaseEnabled,
@@ -109,6 +111,17 @@ export default function ChatPage() {
   // materialized the URL is replaced with the thread route and the param is
   // gone. Invalid ids are dropped by backend admission.
   const projectParam = isNewThread ? searchParams.get("project") : null;
+  const analysisDataset = useDatasetSelection(
+    isMock || env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true"
+      ? ""
+      : (user?.id ?? ""),
+    threadId,
+    isNewThread,
+    isNewThread ? searchParams.get("dataset") : null,
+  );
+  const analysisDatasetId = analysisDataset.id;
+  const bindAnalysisDataset = analysisDataset.bind;
+  const [isDatasetPreparing, setIsDatasetPreparing] = useState(false);
   // `isNewThread` tracks whether the backend has the thread yet — gates the
   // SDK's history fetch (see issue #2746).  `isWelcomeMode` is the visual
   // welcome layout (centered input, hero, quick actions); we flip it to false
@@ -323,10 +336,11 @@ export default function ChatPage() {
   // the new composer.
   const submissionEpochRef = useRef(0);
   useEffect(() => {
+    setIsDatasetPreparing(false);
     return () => {
       submissionEpochRef.current += 1;
     };
-  }, [threadId, projectParam]);
+  }, [threadId, projectParam, user?.id]);
 
   const handleSubmit = useCallback(
     async (message: PromptInputMessage, options?: InputBoxSubmitOptions) => {
@@ -446,6 +460,28 @@ export default function ChatPage() {
           ...modelInput.additionalKwargs,
         },
       };
+      if (analysisDatasetId) {
+        setIsDatasetPreparing(true);
+        try {
+          if (isNewThread && !projectParam) await createThread(threadId);
+          if (submissionEpochRef.current !== submissionEpoch)
+            throw new Error("thread-submission-stale");
+          await bindAnalysisDataset();
+        } catch (cause) {
+          if (submissionEpochRef.current === submissionEpoch)
+            toast.error(
+              cause instanceof Error
+                ? cause.message
+                : "数据集绑定失败，请重试。",
+            );
+          throw cause;
+        } finally {
+          if (submissionEpochRef.current === submissionEpoch)
+            setIsDatasetPreparing(false);
+        }
+        if (submissionEpochRef.current !== submissionEpoch)
+          throw new Error("thread-submission-stale");
+      }
       const sendPromise = sendMessage(
         threadId,
         { ...message, text: modelInput.text },
@@ -459,6 +495,8 @@ export default function ChatPage() {
     },
     [
       currentKnowledgeScopeSnapshot,
+      analysisDatasetId,
+      bindAnalysisDataset,
       sendMessage,
       threadId,
       ensureProjectThread,
@@ -770,6 +808,22 @@ export default function ChatPage() {
                         canCreate={canCreateRuns}
                         canCancel={canStopStreaming}
                       />
+                      {!isMock &&
+                        env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY !== "true" && (
+                          <DatasetSelector
+                            items={analysisDataset.items}
+                            selected={analysisDataset.id}
+                            locked={analysisDataset.locked}
+                            loading={analysisDataset.loading}
+                            error={analysisDataset.error}
+                            disabled={
+                              thread.isLoading ||
+                              isUploading ||
+                              isDatasetPreparing
+                            }
+                            onChange={analysisDataset.choose}
+                          />
+                        )}
                       <InputBox
                         className={cn(
                           "bg-background/5 w-full",
@@ -804,6 +858,7 @@ export default function ChatPage() {
                           !hasTodos && <Welcome mode={settings.context.mode} />
                         }
                         disabled={
+                          isDatasetPreparing ||
                           isMock ||
                           env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" ||
                           isUploading ||

@@ -8,9 +8,12 @@ import {
   MessageGroup,
   scheduleToolLabel,
 } from "@/components/workspace/messages/message-group";
+import { ANALYSIS_TOOLS } from "@/core/datapilot/analysis";
 import { I18nContext } from "@/core/i18n/context";
 import { enUS } from "@/core/i18n/locales/en-US";
 import { zhCN } from "@/core/i18n/locales/zh-CN";
+
+import { businessFixture } from "../../../helpers/datapilot";
 
 const artifactsMockState = rs.hoisted(() => ({
   autoOpen: false,
@@ -38,6 +41,29 @@ afterEach(() => {
 });
 
 describe("MessageGroup", () => {
+  it("renders a correlated persisted analysis artifact outside the collapsed tool details", () => {
+    const messages = [
+      {
+        id: "business-ai",
+        type: "ai",
+        content: "",
+        tool_calls: [
+          { id: "business-call", name: ANALYSIS_TOOLS.business, args: {} },
+        ],
+      },
+      {
+        id: "business-result",
+        type: "tool",
+        tool_call_id: "business-call",
+        name: ANALYSIS_TOOLS.business,
+        content: "computed",
+        artifact: { datapilot_analysis: businessFixture },
+      },
+    ] as Message[];
+    expect(renderGroup(messages)).toContain("经营分析结果");
+    expect(renderGroup(messages)).toContain('role="img"');
+    expect(renderGroup(messages.slice(1))).not.toContain("经营分析结果");
+  });
   it("renders each assistant turn's result when provider tool-call ids repeat", () => {
     const messages: Message[] = ["first", "second"].flatMap((turn) => [
       {

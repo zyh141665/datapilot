@@ -1,3 +1,36 @@
+# DataPilot 智能数据分析平台
+
+基于 DeerFlow 扩展的数据分析工作台，保留上游 MIT 许可证及现有代码结构。
+
+- 在 `/workspace/data` 上传 UTF-8 CSV 或 XLSX。多工作表工作簿先选择工作表。
+- 默认“通用分析”适用于遥测、实验、流量、运营表格，可查看数值统计并按 time_slot 等原始字段分组画图；“销售经营分析”是单独的月份/利润分析模式。
+- 数据保存在当前账号下，支持重启后继续读取；每个分析会话固定绑定一份不可变数据集。
+- 点击“打开分析对话”，直接输入问题；无需复制表格，也不会自动调用模型。
+- 数据工具包括清单、结构概览、受控查询、经营分析和图表生成。支持月份销售额/成本/差额利润、增长率和分组变化贡献，图表附数据来源与计算口径。
+- 在数据工作台确认字段后直接计算，也可以让 Agent 查看结构并调用分析工具；工具返回的图表会显示在对话中。
+- 保留旧 `analyze_csv` 文本统计工具。数据集上传上限5 MiB、10,000行、50列、每账号20份；XLSX公式需要先转为值。
+- 安装依赖后执行 `backend\.venv\Scripts\python.exe scripts\datapilot_setup.py`，再重启 `make dev` 加载扩展。
+- 经营分析最多24个月，图表与贡献分析最多50个类别；缺失成本不补零、基期非正不计算增长率。报告导出、多表关联与预测尚未实现。
+
+模块说明：[DataPilot 模块](examples/datapilot-analysis/README.md)。[数据集验收步骤](docs/datapilot/verification.md) · [经营分析与图表验收](docs/datapilot/business-analysis.md)。下面保留上游框架文档。
+
+通用模式及按钮响应说明：[通用分析与性能](docs/datapilot/generic-analysis.md)。
+
+## DataPilot 快速开始
+
+先按下面保留的上游安装说明准备依赖，运行 `make install` 和 `make setup` 完成安装、模型配置，再在项目根目录执行：
+
+```bash
+uv run --project backend python scripts/datapilot_setup.py
+make dev
+```
+
+访问 `http://localhost:2026/workspace/data`，登录后上传 CSV/XLSX，使用“通用分析”或打开分析对话。密钥在本地配置；`.env`、运行配置、用户数据集及日志不上传 Git。Windows 本地启动使用 Git Bash。手动统计与图表功能无需开启 Agent Bash。
+
+项目基于 [DeerFlow](https://github.com/bytedance/deer-flow) 扩展，复用上游认证、会话和 Agent 运行基础设施；自定义数据集、计算、工具与图表模块位于 `examples/datapilot-analysis` 及前端 DataPilot 组件。保留上游 MIT 许可证和版权声明。目前主要验证本地开发与离线模块测试，尚未进行云部署或生产负载验证。
+
+---
+
 # 🦌 DeerFlow - 2.0
 
 [English](./README.md) | 中文 | [日本語](./README_ja.md) | [Français](./README_fr.md) | [Русский](./README_ru.md) | [Português](./README_pt.md) | [한국어](./README_ko.md)
@@ -334,6 +367,8 @@ make down   # 停止并移除容器
 
 前提：先完成上面的“配置”步骤（`make setup`）。`make dev` 需要有效配置文件，默认读取项目根目录下的 `config.yaml`。可以用 `DEER_FLOW_PROJECT_ROOT` 显式指定项目根目录，也可以用 `DEER_FLOW_CONFIG_PATH` 指向某个具体配置文件。运行期状态默认写到项目根目录下的 `.deer-flow`，可用 `DEER_FLOW_HOME` 覆盖；skills 默认读取项目根目录下的 `skills/`，可用 `DEER_FLOW_SKILLS_PATH` 覆盖。启动前先运行 `make doctor` 校验配置。
 在 Windows 上，请使用 Git Bash 运行本地开发流程。基于 bash 的服务脚本不支持直接在原生 `cmd.exe` 或 PowerShell 中执行，且 WSL 也不保证可用，因为部分脚本依赖 Git for Windows 的 `cygpath` 等工具。
+
+本地开发会将 `backend/.venv` 排除出后端热重载监控；依赖文件变化不会触发重启，业务 Python 文件修改仍会重载。Windows 下多余的重载可能向启动终端传播 Ctrl+C 信号，导致整套服务停止。
 
 1. **检查依赖环境**：
    ```bash

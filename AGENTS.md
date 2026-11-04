@@ -184,6 +184,8 @@ Corepack honors its pinned package-manager version.
 
 ### Prerequisites before `make dev`
 
+Local Gateway launchers pre-create and exclude `backend/.venv` using absolute paths. Keep dependency Python files outside hot reload while retaining application reloads; Windows Uvicorn restart emits a console Ctrl+C event. Regression: `backend/tests/test_uvicorn_reload_exclude.py` exercises the real Uvicorn file filter for both local launchers.
+
 Run `make config`, then `make install`, then `make dev` on first setup.
 `make dev` requires existing config; both runtime configs are API-editable and
 gitignored. Never commit them.
@@ -247,3 +249,9 @@ Repo-wide conventions:
   all publishing on drift. See [RELEASING.md](RELEASING.md).
 - **Don't edit `CLAUDE.md`** — it only contains `@AGENTS.md`. All agent guidance changes
   belong here in `AGENTS.md`; `CLAUDE.md` is a thin import shim.
+
+## DataPilot product layer
+
+Keep upstream package/runtime identifiers stable. Product identity is `frontend/src/core/brand.ts`; CSV UI is `/workspace/data`. Business tools live in the independent `examples/datapilot-analysis` package, a local backend uv dependency. Use `scripts/datapilot_setup.py` for public tool declarations, never display credentials. Preserve upstream attribution. CSV/XLSX upload persists normalized datasets per owner. Chat handoff uses a selected dataset ID and an owner-authorized immutable binding; only explicitly submitted questions call the model.
+
+Business analysis is implemented in the extension's `business.py`: explicit fields/units, calendar-month scopes and no missing-value imputation. Charts use the public content-and-artifact contract, with frontend schema validation and exact tool-call correlation. Keep the business API and Agent tool on the same pure calculation path; do not add business logic to the agent loop. Frontend SVG rendering lives in `datapilot-analysis-result.tsx`. See `docs/datapilot/business-analysis.md`.

@@ -28,7 +28,8 @@ import sys
 from pathlib import Path
 
 import pytest
-from uvicorn.config import resolve_reload_patterns
+from uvicorn.config import Config, resolve_reload_patterns
+from uvicorn.supervisors.watchfilesreload import FileFilter
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -185,3 +186,34 @@ def test_precreated_sandbox_artifacts_are_gitignored():
     if result.returncode == 128:  # not a git checkout (e.g. packaged install)
         pytest.skip("not inside a git working tree")
     assert result.returncode == 0, "backend/sandbox/* should be gitignored (see backend/.gitignore '/sandbox/')"
+
+
+@pytest.mark.parametrize("name", ["scripts/serve.sh", "backend/Makefile"])
+def test_local_reload_ignores_dependency_python_but_keeps_application_python(name, tmp_path, monkeypatch):
+    """Dependency updates must not restart a Windows server's entire console group."""
+    backend = tmp_path / "backend"
+    app_file = backend / "app" / "main.py"
+    dependency_file = backend / ".venv" / "Lib" / "site-packages" / "example" / "client.py"
+    for path in [app_file, dependency_file]:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("VALUE = 1\n", encoding="utf-8")
+    runtime = backend / ".deer-flow"
+    sandbox = backend / "sandbox"
+    runtime.mkdir()
+    sandbox.mkdir()
+    replacements = {
+        "$REPO_ROOT": tmp_path.as_posix(),
+        "$DEER_FLOW_HOME": runtime.as_posix(),
+        "$BACKEND_RUNTIME_HOME": runtime.as_posix(),
+        "$(DEER_FLOW_HOME)": runtime.as_posix(),
+        "$(BACKEND_SANDBOX_HOME)": sandbox.as_posix(),
+        "$(BACKEND_VENV_HOME)": (backend / ".venv").as_posix(),
+    }
+    excludes = _reload_exclude_values(LAUNCHERS[name].read_text(encoding="utf-8"))
+    for variable, value in replacements.items():
+        excludes = [pattern.replace(variable, value) for pattern in excludes]
+    monkeypatch.chdir(backend)
+    config = Config("unused:app", reload=True, reload_dirs=[str(backend)], reload_excludes=excludes)
+    should_reload = FileFilter(config)
+    assert should_reload(app_file), "Application edits must still trigger reload"
+    assert not should_reload(dependency_file), "Dependency installation must not trigger reload"

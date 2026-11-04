@@ -30,6 +30,7 @@ import {
 } from "@/components/ai-elements/chain-of-thought";
 import { CodeBlock } from "@/components/ai-elements/code-block";
 import { Button } from "@/components/ui/button";
+import { DataAnalysisResults } from "@/components/workspace/datapilot-analysis-result";
 import {
   buildWriteFileArtifactURL,
   resolveArtifactURL,
@@ -517,6 +518,19 @@ function MessageGroupComponent({
   return (
     <>
       {processingPanel}
+      <DataAnalysisResults
+        results={steps.flatMap((step) =>
+          step.type === "toolCall" && step.resultMessage
+            ? [
+                {
+                  key: step.occurrenceId,
+                  name: step.name,
+                  message: step.resultMessage,
+                },
+              ]
+            : [],
+        )}
+      />
       {clarificationTextSteps.map((step) => (
         <div key={step.id} className="w-full">
           <MarkdownContent

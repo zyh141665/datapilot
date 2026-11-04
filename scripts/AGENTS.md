@@ -56,6 +56,8 @@ trimming its contents. Offline CLI coverage:
 
 ## Service Startup Contracts
 
+`serve.sh` pre-creates and excludes the absolute `backend/.venv` path before starting the reload server. Dependency updates must not restart the Gateway (Windows reload can send Ctrl+C through its shared console). Keep this aligned with `backend/Makefile`; real-filter regression coverage lives in `backend/tests/test_uvicorn_reload_exclude.py`.
+
 `serve.sh` reads `DEER_FLOW_GATEWAY_STARTUP_TIMEOUT` after root `.env` for
 local Gateway port readiness (positive integer seconds, default 30). Reject
 invalid values before cleanup/startup except `--stop`; keep frontend/nginx waits.
@@ -516,3 +518,9 @@ dotenv files. Unset/empty selection preserves the optional root .env default;
 explicit invalid files reject build/start before Docker. Stopping remains
 possible after the selected file is removed. Tests: `test_deploy_env_file.py`
 and the existing deployment/Compose suites.
+
+## DataPilot configuration
+
+`datapilot_setup.py` inserts public tool/group entries, supports both indented and indentless YAML sequences, validates before writing and preserves other settings. It never prints credentials. `config.yaml.datapilot-backup` is private and Git-ignored. Do not commit configs or backups. Regression tests: examples/datapilot-analysis/tests/test_setup.py.
+
+DataPilot setup also registers `datapilot_analysis.plugin:install` with an absolute operator-owned SQLite path. It remains startup-only; restart Gateway after applying configuration. Never print or commit the runtime config.

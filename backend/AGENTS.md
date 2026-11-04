@@ -125,6 +125,8 @@ watcher. Do not replace it with a bare `uvicorn --reload`: agent tasks write
 Python and other runtime files below `DEER_FLOW_HOME`, which would otherwise
 restart the Gateway during an active run.
 
+Both local launchers also pre-create and exclude the absolute `backend/.venv` directory. Dependency changes must not trigger Uvicorn reload; application edits must still do so. `tests/test_uvicorn_reload_exclude.py` checks that boundary with Uvicorn's actual `FileFilter`.
+
 Configuration checks and operator migration scripts reuse the installed backend
 environment with `uv run --no-sync --project backend` from the repository root.
 `--project` preserves the caller's working directory and relative runtime/config
@@ -324,3 +326,11 @@ See `docs/` directory for detailed documentation:
 - [PATH_EXAMPLES.md](docs/PATH_EXAMPLES.md) - Path types and usage
 - [summarization.md](docs/summarization.md) - Context summarization
 - [plan_mode_usage.md](docs/plan_mode_usage.md) - Plan mode with TodoList
+
+## DataPilot tools
+
+`datapilot-analysis` is a local editable dependency from `../examples/datapilot-analysis`. It retains the text-based `analyze_csv` and registers a public dataset extension: owner-scoped SQLite persistence, authenticated upload/profile routes, host-authorized immutable thread binding and five namespaced model tools. XLSX uses openpyxl; business code has no private app/harness imports and never executes model SQL or code. Register public tool/group entries with the idempotent root setup script; restart Gateway. Package tests run independently of backend conftest.
+
+Business metrics/comparisons and computed charts use `PluginToolResult` (public extension API >=0.2.10). `business.py` owns numerical/date semantics. `datasets.py` reuses owner-scoped selection and parameterized queries. The manual analysis route shares the exact pure business function. Missing months/values, nonpositive baselines, source identity and category/response bounds are tested. Keep browser constants for namespaced tools in sync with the host naming test.
+
+The generic chart route accepts dataset identifiers only after principal/owner admission and invokes `chart_for_dataset` on the same bounded calculation path as the tool. `_selected_id` resolves bindings without decoding the dataset. Metadata reads exclude row JSON; business/query/chart load data once per computation. Keep the row-read regression and ownership tests. Analysis/chart responses include a `Server-Timing: datapilot;dur=...` measurement for the route calculation path, not all Gateway middleware or browser navigation time.

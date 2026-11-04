@@ -1,3 +1,34 @@
+# DataPilot — intelligent data analysis workspace
+
+Application-owned dataset workflows on DeerFlow, retaining upstream MIT attribution and existing package structure.
+
+- Upload UTF-8 CSV or XLSX at `/workspace/data`; choose a worksheet for multi-sheet workbooks.
+- The default **通用分析** mode supports telemetry, experiments and operations data: inspect numeric summaries and group by arbitrary columns such as numeric `time_slot`. Calendar dates are required only for the separate sales-business month comparison mode.
+- Immutable datasets persist per authenticated owner. A chat binds one dataset on first submission; create another chat to change it.
+- Open an analysis chat directly. No copied table text and no automatic model submission.
+- Public extension contributes dataset inventory, schema/profile, structured queries, business analysis and chart tools. Monthly revenue/cost/profit, growth and additive group contributions are calculated from explicit field mappings; charts retain their source and query context. Legacy `analyze_csv` remains available.
+- Use the workbench field-mapping form for direct calculations without a model, or ask the Agent to inspect the schema and call the analysis/chart tools. Completed tool artifacts render as charts in the conversation.
+- Limits: 5 MiB upload, 10,000 rows, 50 columns, 20 datasets/account; XLSX formulas must be converted to values. Business analysis supports 24 months; charts/contributions support 50 categories. Report export, joins and forecasting are not yet implemented.
+- After installing dependencies, run `backend/.venv/Scripts/python.exe scripts/datapilot_setup.py` on Windows, then restart `make dev`.
+- Navigation shows pending feedback and route loading fallbacks; manual calculations show request duration. Immutable profiles are cached per owner/dataset. Development mode can still compile a route on its first visit; see [performance and generic analysis notes](docs/datapilot/generic-analysis.md).
+
+Module guide: [DataPilot analysis](examples/datapilot-analysis/README.md). [Business analysis acceptance guide](docs/datapilot/business-analysis.md). Upstream framework documentation follows.
+
+## DataPilot quick start
+
+Install the prerequisites and dependencies using the upstream guide below (`make install`), then configure the model with `make setup`. In the repository root, enable the DataPilot extension and launch:
+
+```bash
+uv run --project backend python scripts/datapilot_setup.py
+make dev
+```
+
+Open `http://localhost:2026/workspace/data`, sign in, upload CSV/XLSX and select **通用分析** or open an analysis chat. Model/API credentials are configured locally; `.env`, runtime configuration, user datasets and logs are excluded from Git. Windows local startup uses Git Bash. Charts, statistics and manual field mapping work without enabling Agent Bash.
+
+This repository builds on [DeerFlow](https://github.com/bytedance/deer-flow). Upstream authentication, Agent runtime and conversation infrastructure are reused; DataPilot's dataset, calculation, tool and chart modules are in `examples/datapilot-analysis` and the frontend DataPilot components. The upstream MIT license and notices are retained. This is a local-development portfolio project; cloud deployment and production-load verification are outside the current validation scope.
+
+---
+
 # 🦌 DeerFlow - 2.0
 
 English | [中文](./README_zh.md) | [日本語](./README_ja.md) | [Français](./README_fr.md) | [Русский](./README_ru.md) | [Português](./README_pt.md) | [한국어](./README_ko.md)
@@ -872,6 +903,8 @@ Prerequisite: complete the "Configuration" steps above first (`make setup`). `ma
 Configuration checks and agent-storage migrations use the installed backend environment through `uv run --no-sync --project backend` from the repository root. This preserves relative runtime paths and installed optional dependencies; see the [setup checks](backend/docs/SETUP.md#steps) and [agent-storage migration](backend/docs/CONFIGURATION.md#agent-storage).
 
 On Windows, run the local development flow from Git Bash. Native `cmd.exe` and PowerShell shells are not supported for the bash-based service scripts, and WSL is not guaranteed because some scripts rely on Git for Windows utilities such as `cygpath`.
+
+Local development excludes `backend/.venv` from Gateway hot reload. Dependency file changes must not restart the server; application Python files still trigger reload. On Windows, unnecessary reloads can propagate a Ctrl+C event to the launcher's console and stop the whole stack.
 
 The documented root `make` commands invoke repository `.sh` files through Bash
 explicitly. They therefore continue to work from source archives or filesystems

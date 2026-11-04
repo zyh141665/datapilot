@@ -22,6 +22,7 @@ import {
   type SetupStatusResponse,
 } from "@/core/auth/setup";
 import { parseAuthError } from "@/core/auth/types";
+import { PRODUCT } from "@/core/brand";
 import { useI18n } from "@/core/i18n/hooks";
 
 export default function LoginPage() {
@@ -256,7 +257,9 @@ export default function LoginPage() {
       />
       <div className="border-border/20 bg-background/5 w-full max-w-md space-y-6 rounded-3xl border p-8 backdrop-blur-sm">
         <div className="text-center">
-          <h1 className="text-foreground font-serif text-3xl">DeerFlow</h1>
+          <h1 className="text-foreground font-serif text-3xl">
+            {PRODUCT.name}
+          </h1>
           <p className="text-muted-foreground mt-2">
             {isLogin ? t.login.signInTitle : t.login.createAccountTitle}
           </p>

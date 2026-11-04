@@ -213,7 +213,7 @@ export const zhCN: Translations = {
       setup: "接入方式",
       notice: "按工作场景发现插件，需要时再连接账号、配置权限。",
       configured: "已配置",
-      nativeHint: "DeerFlow 已支持 · 需按部署配置",
+      nativeHint: "DataPilot 已支持 · 需按部署配置",
       guideHint: "接入参考 · 尚未连接",
       unknownStatus: "状态不可用",
       notConnected: "未连接",
@@ -221,7 +221,7 @@ export const zhCN: Translations = {
     integrationSkills: "来自插件",
     sharedSkills: "共享技能",
     title: "能力中心",
-    description: "为你的工作添加工具与技能，让 DeerFlow 更懂你的工作方式。",
+    description: "为你的工作添加工具与技能，让 DataPilot 更懂你的工作方式。",
     plugins: "插件",
     skills: "技能",
     searchPlugins: "搜索插件名称或用途",
@@ -352,13 +352,13 @@ export const zhCN: Translations = {
 
   // Welcome
   welcome: {
-    greeting: "你好，欢迎回来！",
+    greeting: "把问题交给 Agent，把计算交给工具。",
     description:
-      "欢迎使用 🦌 DeerFlow，一个完全开源的超级智能体。通过内置和自定义的 Skills，\nDeerFlow 可以帮你搜索网络、分析数据，还能为你生成幻灯片、\n图片、视频、播客及网页等，几乎可以做任何事情。",
+      "欢迎使用 DataPilot 智能数据分析平台。在数据工作台上传 CSV 或 XLSX，\n选择数据集后直接提问，由工具计算并依据结果回答。",
 
     createYourOwnSkill: "创建你自己的 Agent SKill",
     createYourOwnSkillDescription:
-      "创建你的 Agent Skill 来释放 DeerFlow 的潜力。通过自定义技能，DeerFlow\n可以帮你搜索网络、分析数据，还能为你生成幻灯片、\n网页等作品，几乎可以做任何事情。",
+      "创建你的 Agent Skill 来释放 DataPilot 的潜力。通过自定义技能，DataPilot\n可以帮你搜索网络、分析数据，还能为你生成幻灯片、\n网页等作品，几乎可以做任何事情。",
   },
 
   // Clipboard
@@ -517,7 +517,7 @@ export const zhCN: Translations = {
     voiceInputStartLabel: "语音输入",
     voiceInputStopLabel: "停止语音输入",
     voiceInputStart:
-      "语音输入。DeerFlow 只接收转写文本，音频由浏览器或系统语音服务处理。",
+      "语音输入。DataPilot 只接收转写文本，音频由浏览器或系统语音服务处理。",
     voiceInputStop: "停止语音输入",
     voiceInputListening: "正在聆听... 点击停止语音输入。",
     voiceInputUnsupported:
@@ -862,11 +862,11 @@ export const zhCN: Translations = {
     cancelling: "正在取消…",
     cancelFailed: "取消任务失败",
     cancellationRetrying: (attempt) =>
-      `第 ${attempt} 次取消失败；DeerFlow 将继续重试。`,
+      `第 ${attempt} 次取消失败；DataPilot 将继续重试。`,
     notificationRetrying: (attempt) =>
-      `第 ${attempt} 次聊天通知失败；DeerFlow 将退避后重试。`,
+      `第 ${attempt} 次聊天通知失败；DataPilot 将退避后重试。`,
     notificationStopped: "聊天通知因反复失败或永久拒绝，已停止重试。",
-    trackingDegraded: "状态检查有所延迟，DeerFlow 仍在重试。",
+    trackingDegraded: "状态检查有所延迟，DataPilot 仍在重试。",
     viewDetails: "查看详情",
     hideDetails: "收起详情",
     detailsFailed: "无法加载任务详情",
@@ -983,8 +983,8 @@ export const zhCN: Translations = {
     },
     page: {
       description:
-        "DeerFlow 按计划替你运行的任务。也可以直接在任意对话里让它创建。",
-      descriptionNoChat: "DeerFlow 按计划替你运行的任务。",
+        "DataPilot 按计划替你运行的任务。也可以直接在任意对话里让它创建。",
+      descriptionNoChat: "DataPilot 按计划替你运行的任务。",
       newTask: "新建任务",
       tabs: {
         all: "全部",
@@ -997,7 +997,7 @@ export const zhCN: Translations = {
       emptyTitle: "还没有定时任务",
       emptyBody:
         "可以直接在对话里说，例如“每个工作日 9 点汇总我的 GitHub 通知”，也可以在这里新建。",
-      emptyBodyNoChat: "新建一个任务，DeerFlow 会按计划运行它。",
+      emptyBodyNoChat: "新建一个任务，DataPilot 会按计划运行它。",
       threadFilter: "仅显示此对话的任务",
       showAll: "显示全部",
       schedulerOffTitle: "此服务器未开启自动运行",
@@ -1072,7 +1072,7 @@ export const zhCN: Translations = {
       trialsDontCount: "试运行不计入。",
       autoPauseRule: "连续 3 次未达成目标会自动暂停",
       goalTooltip:
-        "每次运行结束后，DeerFlow 会对照这个目标检查结果；没达成时，智能体会在这次运行里继续处理。达成目标不会结束定时任务。",
+        "每次运行结束后，DataPilot 会对照这个目标检查结果；没达成时，智能体会在这次运行里继续处理。达成目标不会结束定时任务。",
     },
     notice: {
       pausedByAgentTitle: "已由智能体暂停",
@@ -1274,7 +1274,7 @@ export const zhCN: Translations = {
       },
     },
     runErrors: {
-      restarted: "已中断：运行期间 DeerFlow 重启了",
+      restarted: "已中断：运行期间 DataPilot 重启了",
       leaseLost: "已中断：负责运行的服务器失去响应",
       queueTimeout: "已跳过：等待空闲位置的时间过长",
       pausedWhileQueued: "因任务暂停而取消",
@@ -1443,14 +1443,14 @@ export const zhCN: Translations = {
     save: "保存智能体",
     saving: "正在保存智能体...",
     saveRequested:
-      "已提交保存请求，DeerFlow 正在根据当前对话生成并保存初版智能体。",
+      "已提交保存请求，DataPilot 正在根据当前对话生成并保存初版智能体。",
     saveHint:
       "你可以在右上角的菜单里随时保存这个智能体，就算目前还只是初稿也可以。",
     saveCommandMessage:
       "请现在根据我们目前已经讨论的全部内容保存这个自定义智能体。这就是我明确的保存确认。如果仍有少量细节缺失，请根据上下文做出合理假设，生成一份简洁的英文初始 SOUL.md，并直接调用 setup_agent，不要再向我索要额外确认。",
-    agentSaveFailed: "DeerFlow 未能保存这个智能体。请查看工具错误后重试。",
+    agentSaveFailed: "DataPilot 未能保存这个智能体。请查看工具错误后重试。",
     agentCreatedPendingRefresh:
-      "DeerFlow 未能确认智能体已保存，请重新尝试保存。",
+      "DataPilot 未能确认智能体已保存，请重新尝试保存。",
     more: "更多操作",
     agentCreated: "智能体已创建！",
     startChatting: "开始对话",
@@ -1650,10 +1650,10 @@ export const zhCN: Translations = {
       already_bound:
         "微信提示此机器人已连接。请关闭弹窗检查连接状态，或在手机上选择其他机器人。",
       saved: "Token 已安全保存",
-      savedDescription: "DeerFlow 已在服务器保存 Token 并启动微信渠道。",
+      savedDescription: "DataPilot 已在服务器保存 Token 并启动微信渠道。",
       bindTitle: "最后一步：绑定你的账号",
       bindDescription:
-        "将下方指令发送给微信中的机器人，即可绑定到你的 DeerFlow 账号。",
+        "将下方指令发送给微信中的机器人，即可绑定到你的 DataPilot 账号。",
       bindWaiting: "正在等待微信中的绑定消息…",
       bindLoading: "正在准备账号绑定…",
       bindFailed: "Token 已保存，但账号绑定暂时不可用，请重试。",
@@ -1668,7 +1668,7 @@ export const zhCN: Translations = {
 
       login: "扫码连接",
       manual: "使用 Token",
-      description: "将微信连接到你的 DeerFlow 工作空间。",
+      description: "将微信连接到你的 DataPilot 工作空间。",
       loading: "正在生成二维码…",
       imageTitle: "微信登录二维码",
       scan: "请使用微信扫描二维码，并在手机上确认登录。",
@@ -1693,8 +1693,8 @@ export const zhCN: Translations = {
     bindingCode: {
       description: (provider: string) =>
         /^[A-Za-z0-9]/.test(provider)
-          ? `把下面这条命令发给 ${provider} 机器人，即可绑定到你的 DeerFlow 账号。`
-          : `把下面这条命令发给${provider}机器人，即可绑定到你的 DeerFlow 账号。`,
+          ? `把下面这条命令发给 ${provider} 机器人，即可绑定到你的 DataPilot 账号。`
+          : `把下面这条命令发给${provider}机器人，即可绑定到你的 DataPilot 账号。`,
       loading: "正在生成绑定码…",
       copy: "复制命令",
       copied: "已复制",
@@ -1721,15 +1721,15 @@ export const zhCN: Translations = {
     saveAndConnect: "保存并连接",
     saveChanges: "保存修改",
     descriptions: {
-      buzz: "通过 DeerFlow 智能体接收 Buzz 频道消息和私聊。",
+      buzz: "通过 DataPilot 智能体接收 Buzz 频道消息和私聊。",
       qq: "通过 WebSocket 接收 QQ 私聊和群聊 @机器人消息。",
-      telegram: "通过 DeerFlow Bot 接收 Telegram 私聊消息。",
+      telegram: "通过 DataPilot Bot 接收 Telegram 私聊消息。",
       slack: "接收 Slack 工作区消息和提及。",
-      discord: "通过 DeerFlow Bot 接收 Discord 服务器消息。",
-      feishu: "通过 DeerFlow 应用接收飞书和 Lark 消息。",
-      dingtalk: "通过 DeerFlow Bot 接收钉钉 Stream Push 消息。",
-      wechat: "通过 DeerFlow Bot 接收微信 iLink 消息。",
-      wecom: "通过 DeerFlow AI Bot 接收企业微信消息。",
+      discord: "通过 DataPilot Bot 接收 Discord 服务器消息。",
+      feishu: "通过 DataPilot 应用接收飞书和 Lark 消息。",
+      dingtalk: "通过 DataPilot Bot 接收钉钉 Stream Push 消息。",
+      wechat: "通过 DataPilot Bot 接收微信 iLink 消息。",
+      wecom: "通过 DataPilot AI Bot 接收企业微信消息。",
     },
     connectedAs: (name: string) => `已连接为 ${name}。`,
     scheduledUpdates: {
@@ -1741,7 +1741,7 @@ export const zhCN: Translations = {
 
   // Page titles (document title)
   pages: {
-    appName: "DeerFlow",
+    appName: "DataPilot",
     chats: "对话",
     newChat: "新对话",
     untitled: "未命名",
@@ -1778,7 +1778,7 @@ export const zhCN: Translations = {
     writeFile: "写入文件",
     clickToViewContent: "点击查看文件内容",
     writeTodos: "更新 To-do 列表",
-    skillInstallTooltip: "安装技能并使其可在 DeerFlow 中使用",
+    skillInstallTooltip: "安装技能并使其可在 DataPilot 中使用",
     browserNavigate: (url: string) => `在浏览器中打开 ${url}`,
     browserNavigateGeneric: "在浏览器中打开页面",
     browserClick: "在浏览器中点击元素",
@@ -1884,7 +1884,7 @@ export const zhCN: Translations = {
     noResults: "未找到结果。",
     actions: "操作",
     keyboardShortcuts: "键盘快捷键",
-    keyboardShortcutsDescription: "使用键盘快捷键更快地操作 DeerFlow。",
+    keyboardShortcutsDescription: "使用键盘快捷键更快地操作 DataPilot。",
     openCommandPalette: "打开命令面板",
     toggleSidebar: "切换侧边栏",
   },
@@ -1892,7 +1892,7 @@ export const zhCN: Translations = {
   // Settings
   settings: {
     title: "设置",
-    description: "根据你的偏好调整 DeerFlow 的界面和行为。",
+    description: "根据你的偏好调整 DataPilot 的界面和行为。",
     models: {
       title: "模型",
       description: "管理供用户选择的共享模型。服务器配置中的模型为只读。",
@@ -1981,7 +1981,7 @@ export const zhCN: Translations = {
     memory: {
       title: "记忆",
       description:
-        "DeerFlow 会在后台不断从你的对话中自动学习。这些记忆能帮助 DeerFlow 更好地理解你，并提供更个性化的体验。",
+        "DataPilot 会在后台不断从你的对话中自动学习。这些记忆能帮助 DataPilot 更好地理解你，并提供更个性化的体验。",
       empty: "暂无可展示的记忆数据。",
       rawJson: "原始 JSON",
       exportButton: "导出记忆",
@@ -2147,7 +2147,7 @@ export const zhCN: Translations = {
     },
     channels: {
       title: "渠道",
-      description: "连接可在浏览器外向 DeerFlow 发送消息的即时通讯账号。",
+      description: "连接可在浏览器外向 DataPilot 发送消息的即时通讯账号。",
       disabled:
         "当前服务器未启用渠道连接。请联系管理员开启 channel_connections。",
     },
@@ -2198,7 +2198,7 @@ export const zhCN: Translations = {
         changeAppButton: "切换飞书 Bot",
         changeAppTitle: "切换到其他飞书 App",
         changeAppDescription:
-          "把你的 DeerFlow 账号指向另一个 Lark/飞书 App。只影响你自己的账号，不影响其他用户。",
+          "把你的 DataPilot 账号指向另一个 Lark/飞书 App。只影响你自己的账号，不影响其他用户。",
         changeAppIdLabel: "App ID",
         changeAppSecretLabel: "App Secret",
         changeAppAuthResetNote:
@@ -2210,9 +2210,9 @@ export const zhCN: Translations = {
         brandLark: "Lark",
         connectionStarted: "连接链接已打开",
         connectionReady: "连接准备已完成，正在打开授权链接",
-        authStarted: "授权页已打开，DeerFlow 会自动检测授权结果。",
+        authStarted: "授权页已打开，DataPilot 会自动检测授权结果。",
         authorizationStillPending:
-          "还没有检测到授权完成。请在浏览器完成授权；DeerFlow 会继续自动检测。如果页面没有更新，可点击“我已完成授权”。",
+          "还没有检测到授权完成。请在浏览器完成授权；DataPilot 会继续自动检测。如果页面没有更新，可点击“我已完成授权”。",
         permissionTitle: "授权范围",
         permissionDescription:
           "默认只完成基础登录，不会申请任何业务权限。按需在这里勾选要授权的业务域；已连接用户可以重新授权继续追加（scope 会累积）。",
@@ -2316,10 +2316,10 @@ export const zhCN: Translations = {
           "首次连接需要在浏览器里完成一次飞书确认。打开下面的链接按提示完成；完成后回到这里继续授权。",
         openAuthLinkTitle: "在浏览器中完成飞书授权",
         openAuthLinkDescription:
-          "打开下面的链接完成授权。DeerFlow 会持续自动检测，并在授权通过后保存连接状态。",
+          "打开下面的链接完成授权。DataPilot 会持续自动检测，并在授权通过后保存连接状态。",
         waitingAuthTitle: "等待飞书授权完成",
         waitingAuthDescription:
-          "请在刚打开的浏览器页面完成授权。DeerFlow 会自动更新这里的状态；下方按钮只是兜底操作。",
+          "请在刚打开的浏览器页面完成授权。DataPilot 会自动更新这里的状态；下方按钮只是兜底操作。",
         openAuthLink: "打开链接",
         copyAuthLink: "复制链接",
         completeAuth: "我已完成授权",
@@ -2344,7 +2344,7 @@ export const zhCN: Translations = {
           "本次连接流程已向飞书验证当前用户授权。需要刷新授权或追加权限时，可重新连接。",
         authNextTitle: "下一步完成浏览器授权",
         authNextDescription:
-          "点击“连接飞书”后，DeerFlow 会先检查当前状态；未连接或授权过期时会拉起浏览器授权。",
+          "点击“连接飞书”后，DataPilot 会先检查当前状态；未连接或授权过期时会拉起浏览器授权。",
       },
     },
     skills: {
@@ -2414,7 +2414,7 @@ export const zhCN: Translations = {
       createSkill: "新建技能",
       emptyTitle: "还没有技能",
       emptyDescription:
-        "将你的 Agent Skill 文件夹放在 DeerFlow 根目录下的 `/skills/custom` 文件夹中。",
+        "将你的 Agent Skill 文件夹放在 DataPilot 根目录下的 `/skills/custom` 文件夹中。",
       emptyButton: "创建你的第一个技能",
       adminRequired: "需要管理员权限才能管理 Agent Skill。",
       installAdminRequired: "需要管理员权限才能安装 Agent Skill。",
@@ -2427,12 +2427,12 @@ export const zhCN: Translations = {
     notification: {
       title: "通知",
       description:
-        "DeerFlow 只会在窗口不活跃时发送完成通知，特别适合长时间任务：你可以先去做别的事，完成后会收到提醒。",
+        "DataPilot 只会在窗口不活跃时发送完成通知，特别适合长时间任务：你可以先去做别的事，完成后会收到提醒。",
       requestPermission: "请求通知权限",
       deniedHint:
         "通知权限已被拒绝。可在浏览器的网站设置中重新开启，以接收完成提醒。",
       testButton: "发送测试通知",
-      testTitle: "DeerFlow",
+      testTitle: "DataPilot",
       testBody: "这是一条测试通知。",
       notSupported: "当前浏览器不支持通知功能。",
       disableNotification: "关闭通知",
@@ -2474,7 +2474,7 @@ export const zhCN: Translations = {
       changePasswordDescription: "更新你的账号密码。",
       ssoPasswordDescription: "密码由你的 SSO 提供商管理。",
       ssoPasswordMessage:
-        "此账号通过 {provider} 登录，DeerFlow 无法在此管理或修改密码。请前往你的 SSO 提供商账号设置中进行操作。",
+        "此账号通过 {provider} 登录，DataPilot 无法在此管理或修改密码。请前往你的 SSO 提供商账号设置中进行操作。",
       currentPassword: "当前密码",
       newPassword: "新密码",
       confirmNewPassword: "确认新密码",
@@ -2500,14 +2500,14 @@ export const zhCN: Translations = {
     passwordPlaceholder: "•••••••",
     rememberMe: "保持登录",
     rememberMeDescription:
-      "下次打开 DeerFlow 时尽量保持当前会话，仅保存邮箱，不保存密码。",
+      "下次打开 DataPilot 时尽量保持当前会话，仅保存邮箱，不保存密码。",
     pleaseWait: "请稍候...",
     signIn: "登录",
     createAccount: "创建账号",
     createAdminAccount: "创建管理员账号",
     adminSetupRequiredTitle: "需要先完成管理员初始化",
     adminSetupRequiredDescription:
-      "DeerFlow 需要先创建管理员账号，然后才能创建新的普通账号。",
+      "DataPilot 需要先创建管理员账号，然后才能创建新的普通账号。",
     orContinueWith: "或使用以下方式登录",
     ssoHint: "如果你的账号使用单点登录（SSO），请改用下方的选项登录。",
     continueWith: (provider: string) => `使用 ${provider} 登录`,
